@@ -1,0 +1,16 @@
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.SvnRevisionLabeller.plugin\bin\Debug\ccnet.SvnRevisionLabeller.plugin.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.SvnRevisionLabeller.plugin\bin\Debug\ccnet.SvnRevisionLabeller.plugin.pdb
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.SvnRevisionLabeller.plugin\bin\Debug\NetReflector.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.SvnRevisionLabeller.plugin\bin\Debug\ThoughtWorks.CruiseControl.Core.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.SvnRevisionLabeller.plugin\bin\Debug\ThoughtWorks.CruiseControl.Remote.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.SvnRevisionLabeller.plugin\obj\Debug\ccnet.ZiathBuildLabeller.plugin.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.SvnRevisionLabeller.plugin\obj\Debug\ccnet.SvnRevisionLabeller.plugin.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.SvnRevisionLabeller.plugin\obj\Debug\ccnet.SvnRevisionLabeller.plugin.pdb
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Debug\ccnet.SvnRevisionLabeller.plugin.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Debug\ccnet.SvnRevisionLabeller.plugin.pdb
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Debug\NetReflector.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Debug\ThoughtWorks.CruiseControl.Core.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Debug\ThoughtWorks.CruiseControl.Remote.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\obj\Debug\ccnet.ZiathBuildLabeller.plugin.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\obj\Debug\ccnet.SvnRevisionLabeller.plugin.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\obj\Debug\ccnet.SvnRevisionLabeller.plugin.pdb
