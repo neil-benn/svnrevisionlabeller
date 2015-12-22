@@ -5,15 +5,12 @@ using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Remote;
 using System.Net;
 
-namespace CcNet.Labeller
+namespace ccnet.ZiathBuildLabeller.plugin
 {
 
 	[ReflectorType("ZiathBuildLabeller")]
 	public class ZiathBuildLabeller : ILabeller, ITask
 	{
-
-        private string component;
-        private string password;
 
 		#region Constructors
 

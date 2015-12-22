@@ -114,16 +114,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\ThoughtWorks.CruiseControl.Remote.dll</HintPath>
     </Reference>
+    <Reference Include="WinSCPnet, Version=1.2.10.5874, Culture=neutral, PublicKeyToken=2271ec4a3c56d0bf, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WinSCP.5.7.6\lib\WinSCPnet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\ISystemClock.cs" />
-    <Compile Include="Core\SystemClock.cs" />
     <Compile Include="ZiathBuildLabeller.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ZiathSCPPublisher.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -132,10 +135,20 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="WinSCP.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>xcopy "$(TargetPath)" "C:\Program Files (x86)\CruiseControl.NET\server" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetPath)" "C:\Program Files (x86)\CruiseControl.NET\server" /Y
+xcopy "$(TargetDir)WinSCPnet.dll" "C:\Program Files (x86)\CruiseControl.NET\server" /Y
+xcopy "$(TargetDir)WinSCP.exe" "C:\Program Files (x86)\CruiseControl.NET\server" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

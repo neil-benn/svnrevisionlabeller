@@ -3,3 +3,5 @@ C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuild
 C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Release\ThoughtWorks.CruiseControl.Remote.dll
 C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Release\ccnet.ZiathBuildLabeller.plugin.dll
 C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\obj\Release\ccnet.ZiathBuildLabeller.plugin.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Release\WinSCP.exe
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Release\WinSCPnet.dll
