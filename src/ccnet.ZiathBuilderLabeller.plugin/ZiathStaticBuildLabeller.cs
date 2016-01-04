@@ -8,8 +8,8 @@ using System.Net;
 namespace ccnet.ZiathBuildLabeller.plugin
 {
 
-	[ReflectorType("ZiathBuildLabeller")]
-	public class ZiathBuildLabeller : ILabeller, ITask
+	[ReflectorType("ZiathStaticBuildLabeller")]
+	public class ZiathStaticBuildLabeller : ILabeller, ITask
 	{
 
 		#region Constructors
@@ -17,7 +17,7 @@ namespace ccnet.ZiathBuildLabeller.plugin
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SvnRevisionLabeller"/> class.
 		/// </summary>
-		public ZiathBuildLabeller()
+		public ZiathStaticBuildLabeller()
 		{
 		}
 
@@ -26,11 +26,8 @@ namespace ccnet.ZiathBuildLabeller.plugin
 
 		#region Properties
 
-		[ReflectorProperty("component", Required = true)]
-		public string Component { get; set; }
-
-        [ReflectorProperty("password", Required = true)]
-        public string Password { get; set; }
+		[ReflectorProperty("label", Required = true)]
+		public string Label { get; set; }
 
         #endregion
 
@@ -44,13 +41,10 @@ namespace ccnet.ZiathBuildLabeller.plugin
 		
 		public string Generate(IIntegrationResult resultFromLastBuild)
 		{
-            string callURL = "http://www.ziath.com/number/serve?component=" + Component + "&password=" + Password;
-            string buildnumber = new WebClient().DownloadString(callURL);
-            Console.WriteLine("------------START--ZIATH BUILD LABELLER--------------");
-            Console.WriteLine("Getting build number from " + callURL);
-            Console.WriteLine("Build number is " + buildnumber);
+            Console.WriteLine("------------START--ZIATH STATIC BUILD LABELLER--------------");
+            Console.WriteLine("Build number is " + Label);
             Console.WriteLine("-------------END---ZIATH BUILD LABELLER--------------");
-            return buildnumber;
+            return Label;
 
         }
 		#endregion

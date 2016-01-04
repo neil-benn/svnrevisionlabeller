@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using ThoughtWorks.CruiseControl.Core;
 using WinSCP;
+using ThoughtWorks.CruiseControl.Remote;
 
 namespace ccnet.ZiathBuildLabeller.plugin
 {
@@ -20,7 +21,7 @@ namespace ccnet.ZiathBuildLabeller.plugin
             sessionOptions.HostName = Server;
             sessionOptions.UserName = Username;
             sessionOptions.Password = Password;
-            sessionOptions.SshHostKeyFingerprint = "ssh-rsa 2048 3f:5a:08:24:f1:fe:64:90:bc:05:0d:a0:7d:9e:20:fa";
+            sessionOptions.SshHostKeyFingerprint = SSHKeygen;
 
             Session session = new Session();
             session.Open(sessionOptions);
@@ -29,7 +30,7 @@ namespace ccnet.ZiathBuildLabeller.plugin
             transferOptions.TransferMode = TransferMode.Binary;
 
             TransferOperationResult transferResult;
-            transferResult = session.PutFiles(LocalFile, RemoteDirectory, false, transferOptions);
+            transferResult = session.PutFiles(LocalFile, RemoteDirectory + "/", false, transferOptions);
 
             // Throw on any error
             transferResult.Check();
@@ -39,9 +40,13 @@ namespace ccnet.ZiathBuildLabeller.plugin
             {
                 Console.WriteLine("Upload of {0} succeeded", transfer.FileName);
             }
+            result.Status = IntegrationStatus.Success;
         }
 
         #region Properties
+
+        [ReflectorProperty("ssh-keygen", Required = true)]
+        public string SSHKeygen { get; set; }
 
         [ReflectorProperty("localfile", Required = true)]
         public string LocalFile { get; set; }

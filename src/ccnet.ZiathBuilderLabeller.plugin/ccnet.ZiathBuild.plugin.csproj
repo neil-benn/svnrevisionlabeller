@@ -11,7 +11,7 @@
     </ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>ccnet.ZiathBuildLabeller.plugin</AssemblyName>
+    <AssemblyName>ccnet.ZiathBuild.plugin</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -19,7 +19,7 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>ccnet.ZiathBuildLabeller.plugin</RootNamespace>
+    <RootNamespace>ccnet.ZiathBuild.plugin</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -123,6 +123,10 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Utilities.cs" />
+    <Compile Include="ZiathDeleteFiles.cs" />
+    <Compile Include="ZiathExecuteNSIS.cs" />
+    <Compile Include="ZiathStaticBuildLabeller.cs" />
     <Compile Include="ZiathBuildLabeller.cs">
       <SubType>Code</SubType>
     </Compile>
