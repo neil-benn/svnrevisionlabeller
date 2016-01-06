@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using ThoughtWorks.CruiseControl.Core;
 
 namespace ccnet.ZiathBuild.plugin
 {
     public class Utilities
     {
+        /// <summary>
+        /// Prints a message both teh cruisecontrol server and the consol
+        /// </summary>
+        /// <param name="result">a reference to the cruise control server to print to</param>
+        /// <param name="message">the message to write</param>
+        public static void LogConsoleAndTask(IIntegrationResult result, String message)
+        {
+            result.AddTaskResult("<message>" + message + "</message>");
+            Console.WriteLine(message);
+        }
         /// <summary>
         /// Return teh SHA checksum oif the git checkin
         /// </summary>

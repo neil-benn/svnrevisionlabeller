@@ -1,0 +1,10 @@
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Debug\WinSCP.exe
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Debug\ccnet.ZiathBuild.plugin.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Debug\ccnet.ZiathBuild.plugin.pdb
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Debug\NetReflector.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Debug\ThoughtWorks.CruiseControl.Core.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Debug\ThoughtWorks.CruiseControl.Remote.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Debug\WinSCPnet.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\obj\Debug\ccnet.ZiathBuild.plugin.dll
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\obj\Debug\ccnet.ZiathBuild.plugin.pdb
+C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\obj\Debug\ccnet.ZiathBuild.plugin.csprojResolveAssemblyReference.cache

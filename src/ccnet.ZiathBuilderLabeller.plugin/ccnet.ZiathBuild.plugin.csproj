@@ -152,6 +152,7 @@
     <PreBuildEvent>
     </PreBuildEvent>
     <PostBuildEvent>xcopy "$(TargetPath)" "C:\Program Files (x86)\CruiseControl.NET\server" /Y
+xcopy "$(TargetDir)$(TargetName).pdb" "C:\Program Files (x86)\CruiseControl.NET\server" /Y
 xcopy "$(TargetDir)WinSCPnet.dll" "C:\Program Files (x86)\CruiseControl.NET\server" /Y
 xcopy "$(TargetDir)WinSCP.exe" "C:\Program Files (x86)\CruiseControl.NET\server" /Y</PostBuildEvent>
   </PropertyGroup>

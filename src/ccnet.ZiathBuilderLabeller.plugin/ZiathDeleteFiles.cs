@@ -7,6 +7,7 @@ using ThoughtWorks.CruiseControl.Core;
 using WinSCP;
 using System.IO;
 using ThoughtWorks.CruiseControl.Remote;
+using ccnet.ZiathBuild.plugin;
 
 namespace ccnet.ZiathBuildLabeller.plugin
 {
@@ -31,21 +32,21 @@ namespace ccnet.ZiathBuildLabeller.plugin
                             try
                             {
                                 Directory.Delete(sDir, true);
-                                result.AddTaskResult(string.Format("Deleted directory {0}", sDir));
+                                Utilities.LogConsoleAndTask(result, string.Format("Deleted directory {0}", sDir));
                             }
                             catch (Exception)
                             {
-                                result.AddTaskResult(string.Format("Failed to delete directory {0}", sDir));
+                                Utilities.LogConsoleAndTask(result, string.Format("Failed to delete directory {0}", sDir));
                             }
                         }
                         else
                         {
-                            result.AddTaskResult(string.Format("Failed to delete directory {0}, it doesn't exist", sDir));
+                            Utilities.LogConsoleAndTask(result, string.Format("Failed to delete directory {0}, it doesn't exist", sDir));
                         }
                     }
                     else
                     {
-                        result.AddTaskResult(string.Format("Empty filename in delete directory", sDir));
+                        Utilities.LogConsoleAndTask(result, string.Format("Empty filename in delete directory", sDir));
                     }
                 }
             }
@@ -67,31 +68,31 @@ namespace ccnet.ZiathBuildLabeller.plugin
                         foreach (string sf in Directory.GetFiles(directory, filename))
                         {
                             Console.WriteLine("processing " + sf);
-                            if (File.Exists(sFile))
+                            if (File.Exists(sf))
                             {
                                 try
                                 {
                                     File.Delete(sFile);
-                                    result.AddTaskResult(string.Format("Deleted file {0}", sFile));
+                                    Utilities.LogConsoleAndTask(result, string.Format("Deleted file {0}", sFile));
                                 }
                                 catch (Exception)
                                 {
-                                    result.AddTaskResult(string.Format("Failed to delete file {0}", sFile));
+                                    Utilities.LogConsoleAndTask(result, string.Format("Failed to delete file {0}", sFile));
                                 }
                             }
                             else
                             {
-                                result.AddTaskResult(string.Format("Failed to delete file {0}, it doesn't exist", sFile));
+                                Utilities.LogConsoleAndTask(result, string.Format("Failed to delete file {0}, it doesn't exist", sFile));
                             }
                         }
                     }
                     else
                     {
-                        result.AddTaskResult(string.Format("Empty filename in delete", sFile));
+                        Utilities.LogConsoleAndTask(result, string.Format("Empty filename in delete", sFile));
                     }
                 }
             }
-            Console.WriteLine("----------------DELETE FILES END-------------");
+            Utilities.LogConsoleAndTask(result, "----------------DELETE FILES END-------------");
             result.Status = IntegrationStatus.Success;
         }
 
