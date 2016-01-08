@@ -55,7 +55,6 @@ namespace ccnet.ZiathBuildLabeller.plugin
             if (Files != null)
             {
 
-
                 foreach (string s in Files)
                 {
                     String sFile = s.Trim();
@@ -72,17 +71,17 @@ namespace ccnet.ZiathBuildLabeller.plugin
                             {
                                 try
                                 {
-                                    File.Delete(sFile);
-                                    Utilities.LogConsoleAndTask(result, string.Format("Deleted file {0}", sFile));
+                                    File.Delete(sf);
+                                    Utilities.LogConsoleAndTask(result, string.Format("Deleted file {0}", sf));
                                 }
                                 catch (Exception)
                                 {
-                                    Utilities.LogConsoleAndTask(result, string.Format("Failed to delete file {0}", sFile));
+                                    Utilities.LogConsoleAndTask(result, string.Format("Failed to delete file {0}", sf));
                                 }
                             }
                             else
                             {
-                                Utilities.LogConsoleAndTask(result, string.Format("Failed to delete file {0}, it doesn't exist", sFile));
+                                Utilities.LogConsoleAndTask(result, string.Format("Failed to delete file {0}, it doesn't exist", sf));
                             }
                         }
                     }

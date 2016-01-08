@@ -6,6 +6,8 @@ using System.Text;
 using ThoughtWorks.CruiseControl.Core;
 using WinSCP;
 using ThoughtWorks.CruiseControl.Remote;
+using ccnet.ZiathBuild.plugin;
+using System.IO;
 
 namespace ccnet.ZiathBuildLabeller.plugin
 {
@@ -14,6 +16,7 @@ namespace ccnet.ZiathBuildLabeller.plugin
     {
         public void Run(IIntegrationResult result)
         {
+            Console.WriteLine("-------SCP Publisher Start-----");
             // Setup session options
             SessionOptions sessionOptions = new SessionOptions();
 
@@ -28,19 +31,50 @@ namespace ccnet.ZiathBuildLabeller.plugin
             // Upload files
             TransferOptions transferOptions = new TransferOptions();
             transferOptions.TransferMode = TransferMode.Binary;
-
-            TransferOperationResult transferResult;
-            transferResult = session.PutFiles(LocalFile, RemoteDirectory + "/", false, transferOptions);
-
-            // Throw on any error
-            transferResult.Check();
-
-            // Print results
-            foreach (TransferEventArgs transfer in transferResult.Transfers)
+            Utilities.LogConsoleAndTask(result, "Hostname : " + Server);
+            Utilities.LogConsoleAndTask(result, "Username : " + Username);
+            Utilities.LogConsoleAndTask(result, "LocalFile : " + LocalFile);
+            Utilities.LogConsoleAndTask(result, "RemoteDirectory : " + RemoteDirectory);
+            
+            string directory = Path.GetDirectoryName(LocalFile);
+            Console.WriteLine("directory is " + directory);
+            string filename = Path.GetFileName(LocalFile);
+            Console.WriteLine("filename is " + filename);
+            Boolean failed = false;
+            foreach (string sf in Directory.GetFiles(directory, filename))
             {
-                Console.WriteLine("Upload of {0} succeeded", transfer.FileName);
+                TransferOperationResult transferResult;
+                Utilities.LogConsoleAndTask(result, "processing " + sf);
+                transferResult = session.PutFiles(sf, RemoteDirectory + "/", false, transferOptions);
+
+                // Throw on any error
+                transferResult.Check();
+                if (!transferResult.IsSuccess)
+                {
+                    foreach (Exception e in transferResult.Failures)
+                    {
+                        Utilities.LogConsoleAndTask(result, e.Message);
+                    }
+                    result.Status = IntegrationStatus.Failure;
+                    failed = true;
+                }
+                else
+                {
+                    // Print results
+                    foreach (TransferEventArgs transfer in transferResult.Transfers)
+                    {
+                        Console.WriteLine("Upload of {0} succeeded", transfer.FileName);
+                    }
+                }
             }
-            result.Status = IntegrationStatus.Success;
+            if (!failed)
+            {
+                result.Status = IntegrationStatus.Success;
+            }
+            else
+            {
+                result.Status = IntegrationStatus.Failure;
+            }
         }
 
         #region Properties

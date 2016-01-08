@@ -124,6 +124,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Utilities.cs" />
+    <Compile Include="ZiathMoveFiles.cs" />
     <Compile Include="ZiathDeleteFiles.cs" />
     <Compile Include="ZiathExecuteNSIS.cs" />
     <Compile Include="ZiathStaticBuildLabeller.cs" />
