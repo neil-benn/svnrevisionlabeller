@@ -12,11 +12,12 @@ namespace ccnet.ZiathBuild.plugin
         public static void LogTaskStart(IIntegrationResult result, String taskName)
         {
             result.AddTaskResult("<buildresults>\r\n");
-            result.AddTaskResult(string.Format("\t<task name=\"{0}\"/>", taskName));
+            result.AddTaskResult(string.Format("\t<task name=\"{0}\"/>\r\n", taskName));
         }
 
         public static void LogTaskEnd(IIntegrationResult result)
         {
+            result.AddTaskResult("\t<\task>\r\n");
             result.AddTaskResult("</buildresults>\r\n");
         }
         /// <summary>

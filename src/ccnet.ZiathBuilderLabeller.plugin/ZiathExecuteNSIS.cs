@@ -57,6 +57,7 @@ namespace ccnet.ZiathBuild.plugin
 
         protected override bool Execute(IIntegrationResult result)
         {
+            Utilities.LogTaskStart(result, "ExecuteNSIS");
             Utilities.LogConsoleAndTask(result, "Process filename : " + GetProcessFilename());
             Utilities.LogConsoleAndTask(result, "Process Arguments : " + GetProcessArguments(result));
             Utilities.LogConsoleAndTask(result, "Process WD : " + GetProcessBaseDirectory(result));
@@ -77,6 +78,7 @@ namespace ccnet.ZiathBuild.plugin
             {
                 Console.WriteLine(proc.StandardOutput.ReadLine() + "\n");
             }
+            Utilities.LogTaskEnd(result);
             return proc.ExitCode == 0;
         }
 

@@ -16,8 +16,9 @@ namespace ccnet.ZiathBuildLabeller.plugin
     {
         public void Run(IIntegrationResult result)
         {
+            Utilities.LogTaskStart(result, "MoveFiles");
             result.BuildProgressInformation.SignalStartRunTask("Processing delete task");
-            Console.WriteLine("----------------ZIATH MOVE FILES START-------------");
+            Utilities.LogConsoleAndTask(result, "----------------ZIATH MOVE FILES START-------------");
             if (!File.Exists(Source))
             {
                 Utilities.LogConsoleAndTask(result, "source file " + Source + " does not exist");
@@ -48,6 +49,7 @@ namespace ccnet.ZiathBuildLabeller.plugin
             Utilities.LogConsoleAndTask(result, "Moved " + Source + " to " + Dest);
             Utilities.LogConsoleAndTask(result, "----------------ZIATH MOVE FILES END-------------");
             result.Status = IntegrationStatus.Success;
+            Utilities.LogTaskEnd(result);
         }
 
         #region Properties

@@ -4,6 +4,7 @@ using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Remote;
 using System.Net;
+using ccnet.ZiathBuild.plugin;
 
 namespace ccnet.ZiathBuildLabeller.plugin
 {
@@ -38,18 +39,20 @@ namespace ccnet.ZiathBuildLabeller.plugin
 
         public void Run(IIntegrationResult result)
 		{
+            Utilities.LogTaskStart(result, "ZiathBuildLabeller");
 			result.Label = Generate(result);
             result.Status = IntegrationStatus.Success;
+            Utilities.LogTaskEnd(result);
         }
 		
 		public string Generate(IIntegrationResult resultFromLastBuild)
 		{
             string callURL = "http://www.ziath.com/number/serve?component=" + Component + "&password=" + Password;
             string buildnumber = new WebClient().DownloadString(callURL);
-            Console.WriteLine("------------START--ZIATH BUILD LABELLER--------------");
-            Console.WriteLine("Getting build number from " + callURL);
-            Console.WriteLine("Build number is " + buildnumber);
-            Console.WriteLine("-------------END---ZIATH BUILD LABELLER--------------");
+            Utilities.LogConsoleAndTask(resultFromLastBuild, "------------START--ZIATH BUILD LABELLER--------------");
+            Utilities.LogConsoleAndTask(resultFromLastBuild, "Getting build number from " + callURL);
+            Utilities.LogConsoleAndTask(resultFromLastBuild, "Build number is " + buildnumber);
+            Utilities.LogConsoleAndTask(resultFromLastBuild, "-------------END---ZIATH BUILD LABELLER--------------");
             return buildnumber;
 
         }

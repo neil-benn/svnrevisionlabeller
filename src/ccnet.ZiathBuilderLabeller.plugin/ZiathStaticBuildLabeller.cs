@@ -4,6 +4,7 @@ using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Remote;
 using System.Net;
+using ccnet.ZiathBuild.plugin;
 
 namespace ccnet.ZiathBuildLabeller.plugin
 {
@@ -35,15 +36,17 @@ namespace ccnet.ZiathBuildLabeller.plugin
 
         public void Run(IIntegrationResult result)
 		{
+            Utilities.LogTaskStart(result, "ZiathStaticBuildLabeller");
 			result.Label = Generate(result);
             result.Status = IntegrationStatus.Success;
+            Utilities.LogTaskEnd(result);
         }
 		
 		public string Generate(IIntegrationResult resultFromLastBuild)
 		{
-            Console.WriteLine("------------START--ZIATH STATIC BUILD LABELLER--------------");
-            Console.WriteLine("Build number is " + Label);
-            Console.WriteLine("-------------END---ZIATH BUILD LABELLER--------------");
+            Utilities.LogConsoleAndTask(resultFromLastBuild, "------------START--ZIATH STATIC BUILD LABELLER--------------");
+            Utilities.LogConsoleAndTask(resultFromLastBuild, "Build number is " + Label);
+            Utilities.LogConsoleAndTask(resultFromLastBuild, ("-------------END---ZIATH BUILD LABELLER--------------");
             return Label;
 
         }
