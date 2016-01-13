@@ -9,6 +9,16 @@ namespace ccnet.ZiathBuild.plugin
 {
     public class Utilities
     {
+        public static void LogTaskStart(IIntegrationResult result, String taskName)
+        {
+            result.AddTaskResult("<buildresults>\r\n");
+            result.AddTaskResult(string.Format("\t<task name=\"{0}\"/>", taskName));
+        }
+
+        public static void LogTaskEnd(IIntegrationResult result)
+        {
+            result.AddTaskResult("</buildresults>\r\n");
+        }
         /// <summary>
         /// Prints a message both teh cruisecontrol server and the consol
         /// </summary>
@@ -16,7 +26,7 @@ namespace ccnet.ZiathBuild.plugin
         /// <param name="message">the message to write</param>
         public static void LogConsoleAndTask(IIntegrationResult result, String message)
         {
-            result.AddTaskResult("<message>" + message + "</message>");
+            result.AddTaskResult("\t\t<message>" + message + "</message>\r\n");
             Console.WriteLine(message);
         }
         /// <summary>
