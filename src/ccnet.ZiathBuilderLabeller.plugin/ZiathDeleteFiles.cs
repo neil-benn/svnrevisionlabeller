@@ -11,45 +11,117 @@ using ccnet.ZiathBuild.plugin;
 
 namespace ccnet.ZiathBuildLabeller.plugin
 {
+
+
+    [ReflectorType("DeleteDirectory")]
+    public class DeleteDirectory
+    {
+        [ReflectorProperty("path", Required = true)]
+        public String Path { get; set; }
+        [ReflectorProperty("recursive", Required = false)]
+        public bool Recursive { get; set; }
+        [ReflectorProperty("exclude", Required = false)]
+        public string Exclude { get; set; }
+    }
+
+
+
     [ReflectorType("ZiathDeleteFiles")]
     public class ZiathDeleteFiles : ITask
     {
+        private bool IsExcluded(string path)
+        {
+            if (Exclusions == null) return false;
+            foreach (string testDir in Exclusions)
+            {
+                if (path.StartsWith(testDir, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private string CombineWithBaseDir(string d)
+        {
+            if (!d.Equals(Path.GetFullPath(d)))
+            {
+                if (!String.IsNullOrEmpty(BaseDir))
+                {
+                    d = Path.Combine(BaseDir, d);
+                }
+            }
+            return d;
+        }
+
+        private void PrintExclusions(IIntegrationResult result)
+        {
+            if (Exclusions != null)
+            {
+                foreach (string exclusion in Exclusions)
+                {
+                    Utilities.LogConsoleAndTask(result, "Exclusion - " + exclusion);
+                }
+            }
+        }
         public void Run(IIntegrationResult result)
         {
             try
             {
                 Utilities.LogTaskStart(result, "ZiathDeleteFiles");
                 result.BuildProgressInformation.SignalStartRunTask("Processing delete task");
-                Utilities.LogConsoleAndTask(result, "----------------ZIATH DELETE FILES START-------------");
+                PrintExclusions(result);
                 Utilities.LogConsoleAndTask(result, "----------------DELETE DIRECTORIES START-------------");
                 if (Directories != null)
                 {
-                    foreach (String d in Directories)
+                    foreach (DeleteDirectory dd in Directories)
                     {
+                        String d = CombineWithBaseDir(dd.Path);
 
                         String sDir = d.Trim();
-                        if (!String.IsNullOrEmpty(sDir))
+                        String workingBaseDir = BaseDir != null ? BaseDir : ".";
+                        string[] delDirs = null;
+
+                        if (dd.Recursive)
                         {
-                            if (Directory.Exists(sDir))
+                            Utilities.LogConsoleAndTask(result, string.Format("Processing recursive from base dir {0} looking for {1}", workingBaseDir, dd.Path));
+                            delDirs = Directory.GetDirectories(workingBaseDir, dd.Path, SearchOption.AllDirectories);
+                        }
+                        else
+                        {
+                            Utilities.LogConsoleAndTask(result, "Not Processing recursive");
+                            delDirs = new string[] { Path.Combine(BaseDir, dd.Path) };
+                        }
+                        foreach (string processDir in delDirs)
+                        {
+                            if (IsExcluded(processDir))
                             {
-                                try
+                                Utilities.LogConsoleAndTask(result, string.Format("Excluding {0}", processDir));
+                                continue;
+                            }
+                            if (!String.IsNullOrEmpty(processDir))
+                            {
+                                if (Directory.Exists(processDir))
                                 {
-                                    Directory.Delete(sDir, true);
-                                    Utilities.LogConsoleAndTask(result, string.Format("Deleted directory {0}", sDir));
+                                    try
+                                    {
+                                        Directory.Delete(processDir, true);
+                                        Utilities.LogConsoleAndTask(result, string.Format("Deleted directory {0}", processDir));
+                                    }
+                                    catch (Exception)
+                                    {
+                                        Utilities.LogConsoleAndTask(result, string.Format("Failed to delete directory {0}", processDir));
+                                    }
                                 }
-                                catch (Exception)
+                                else
                                 {
-                                    Utilities.LogConsoleAndTask(result, string.Format("Failed to delete directory {0}", sDir));
+                                    Utilities.LogConsoleAndTask(result, string.Format("Failed to delete directory {0}, it doesn't exist", processDir));
                                 }
                             }
                             else
                             {
-                                Utilities.LogConsoleAndTask(result, string.Format("Failed to delete directory {0}, it doesn't exist", sDir));
+                                Utilities.LogConsoleAndTask(result, string.Format("Empty dir in delete directory", processDir));
                             }
-                        }
-                        else
-                        {
-                            Utilities.LogConsoleAndTask(result, string.Format("Empty dir in delete directory", sDir));
                         }
                     }
                 }
@@ -60,7 +132,7 @@ namespace ccnet.ZiathBuildLabeller.plugin
 
                     foreach (string s in Files)
                     {
-                        String sFile = s.Trim();
+                        String sFile = CombineWithBaseDir(s.Trim());
                         if (!String.IsNullOrEmpty(sFile))
                         {
                             string directory = Path.GetDirectoryName(sFile);
@@ -97,6 +169,11 @@ namespace ccnet.ZiathBuildLabeller.plugin
                 Utilities.LogConsoleAndTask(result, "----------------DELETE FILES END-------------");
                 result.Status = IntegrationStatus.Success;
             }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.ToString());
+                result.Status = IntegrationStatus.Exception;
+            }
             finally
             {
                 Utilities.LogTaskEnd(result);
@@ -105,10 +182,14 @@ namespace ccnet.ZiathBuildLabeller.plugin
 
         #region Properties
 
+        [ReflectorProperty("BaseDir", Required=false)]
+        public string BaseDir { get; set; }
         [ReflectorArray("files", Required = false)]
         public string[] Files { get; set; }
         [ReflectorArray("directories", Required = false)]
-        public string[] Directories { get; set; }
+        public DeleteDirectory[] Directories { get; set; }
+        [ReflectorArray("exclusions", Required = false)]
+        public string[] Exclusions { get; set; }
         #endregion
 
     }

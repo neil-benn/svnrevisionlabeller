@@ -5,4 +5,3 @@ C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuild
 C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Release\ThoughtWorks.CruiseControl.Remote.dll
 C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\bin\Release\WinSCPnet.dll
 C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\obj\Release\ccnet.ZiathBuild.plugin.dll
-C:\Users\Administrator\Documents\GitHub\svnrevisionlabeller\src\ccnet.ZiathBuilderLabeller.plugin\obj\Release\ccnet.ZiathBuild.plugin.csprojResolveAssemblyReference.cache

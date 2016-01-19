@@ -17,7 +17,7 @@ namespace ccnet.ZiathBuildLabeller.plugin
         public void Run(IIntegrationResult result)
         {
             Utilities.LogTaskStart(result, "ZiathSCPPublisher");
-            Utilities.LogConsoleAndTask(result, ("-------SCP Publisher Start-----");
+            Utilities.LogConsoleAndTask(result, ("-------SCP Publisher Start-----"));
             // Setup session options
             SessionOptions sessionOptions = new SessionOptions();
 
@@ -64,7 +64,7 @@ namespace ccnet.ZiathBuildLabeller.plugin
                     // Print results
                     foreach (TransferEventArgs transfer in transferResult.Transfers)
                     {
-                        Utilities.LogConsoleAndTask(result, "Upload of {0} succeeded", transfer.FileName);
+                        Utilities.LogConsoleAndTask(result, string.Format("Upload of {0} succeeded", transfer.FileName));
                     }
                 }
             }

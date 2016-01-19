@@ -17,7 +17,7 @@ namespace ccnet.ZiathBuild.plugin
 
         public static void LogTaskEnd(IIntegrationResult result)
         {
-            result.AddTaskResult("\t<\task>\r\n");
+            result.AddTaskResult("\t</task>\r\n");
             result.AddTaskResult("</buildresults>\r\n");
         }
         /// <summary>
@@ -31,7 +31,7 @@ namespace ccnet.ZiathBuild.plugin
             Console.WriteLine(message);
         }
         /// <summary>
-        /// Return teh SHA checksum oif the git checkin
+        /// Return the SHA checksum of the git checkin
         /// </summary>
         /// <param name="path">the path to he root of the git project</param>
         /// <returns>a string representing the SHA</returns>

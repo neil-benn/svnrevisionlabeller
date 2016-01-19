@@ -46,7 +46,7 @@ namespace ccnet.ZiathBuildLabeller.plugin
 		{
             Utilities.LogConsoleAndTask(resultFromLastBuild, "------------START--ZIATH STATIC BUILD LABELLER--------------");
             Utilities.LogConsoleAndTask(resultFromLastBuild, "Build number is " + Label);
-            Utilities.LogConsoleAndTask(resultFromLastBuild, ("-------------END---ZIATH BUILD LABELLER--------------");
+            Utilities.LogConsoleAndTask(resultFromLastBuild, "-------------END---ZIATH BUILD LABELLER--------------");
             return Label;
 
         }
