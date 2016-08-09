@@ -11,14 +11,14 @@ namespace ccnet.ZiathBuild.plugin
     {
         public static void LogTaskStart(IIntegrationResult result, String taskName)
         {
-            result.AddTaskResult("<buildresults>\r\n");
-            result.AddTaskResult(string.Format("\t<task name=\"{0}\"/>\r\n", taskName));
+            result.AddTaskResult("start");
+            result.AddTaskResult($"task name={taskName}");
+            
         }
 
         public static void LogTaskEnd(IIntegrationResult result)
         {
-            result.AddTaskResult("\t</task>\r\n");
-            result.AddTaskResult("</buildresults>\r\n");
+            result.AddTaskResult("end");
         }
         /// <summary>
         /// Prints a message both teh cruisecontrol server and the consol
@@ -27,22 +27,34 @@ namespace ccnet.ZiathBuild.plugin
         /// <param name="message">the message to write</param>
         public static void LogConsoleAndTask(IIntegrationResult result, String message)
         {
-            result.AddTaskResult("\t\t<message>" + message + "</message>\r\n");
+            result.AddTaskResult(message);
             Console.WriteLine(message);
         }
+
+        /// <summary>
+        /// Prints a message both teh cruisecontrol server and the consol
+        /// </summary>
+        /// <param name="result">a reference to the cruise control server to print to</param>
+        /// <param name="ex">the ex to write</param>
+        public static void LogConsoleAndTask(IIntegrationResult result, Exception ex)
+        {
+            Console.WriteLine(ex.StackTrace);
+            LogConsoleAndTask(result, ex.Message);
+        }
+
         /// <summary>
         /// Return the SHA checksum of the git checkin
         /// </summary>
         /// <param name="path">the path to he root of the git project</param>
         /// <returns>a string representing the SHA</returns>
-        public static string GetGitSHA(string gitProjectPath)
+        public static string GetGitSHA(string gitProjectPath, string gitExe)
         {
             var proc = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
                     WorkingDirectory = gitProjectPath,
-                    FileName = "git",
+                    FileName = gitExe,
                     Arguments = " rev-parse --short HEAD",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,

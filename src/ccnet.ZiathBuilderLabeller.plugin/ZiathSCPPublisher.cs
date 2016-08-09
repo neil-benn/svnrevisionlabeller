@@ -8,13 +8,14 @@ using WinSCP;
 using ThoughtWorks.CruiseControl.Remote;
 using ccnet.ZiathBuild.plugin;
 using System.IO;
+using ThoughtWorks.CruiseControl.Core.Tasks;
 
 namespace ccnet.ZiathBuildLabeller.plugin
 {
     [ReflectorType("ZiathSCPPublisher")]
-    public class ZiathSCPPublisher : ITask
+    public class ZiathSCPPublisher : TaskBase
     {
-        public void Run(IIntegrationResult result)
+        protected override bool Execute(IIntegrationResult result)
         {
             Utilities.LogTaskStart(result, "ZiathSCPPublisher");
             Utilities.LogConsoleAndTask(result, ("-------SCP Publisher Start-----"));
@@ -68,15 +69,9 @@ namespace ccnet.ZiathBuildLabeller.plugin
                     }
                 }
             }
-            if (!failed)
-            {
-                result.Status = IntegrationStatus.Success;
-            }
-            else
-            {
-                result.Status = IntegrationStatus.Failure;
-            }
+
             Utilities.LogTaskEnd(result);
+            return !failed;
         }
 
         #region Properties

@@ -8,36 +8,36 @@ using WinSCP;
 using System.IO;
 using ThoughtWorks.CruiseControl.Remote;
 using ccnet.ZiathBuild.plugin;
+using ThoughtWorks.CruiseControl.Core.Util;
+using ThoughtWorks.CruiseControl.Core.Tasks;
 
 namespace ccnet.ZiathBuildLabeller.plugin
 {
     [ReflectorType("ZiathMoveFiles")]
-    public class ZiathMoveFiles : ITask
+    public class ZiathMoveFiles : TaskBase
     {
-        public void Run(IIntegrationResult result)
+        protected override bool Execute(IIntegrationResult result)
         {
             Utilities.LogTaskStart(result, "MoveFiles");
-            result.BuildProgressInformation.SignalStartRunTask("Processing delete task");
+            result.BuildProgressInformation.SignalStartRunTask("Processing move task");
             Utilities.LogConsoleAndTask(result, "----------------ZIATH MOVE FILES START-------------");
             if (!File.Exists(Source))
             {
                 Utilities.LogConsoleAndTask(result, "source file " + Source + " does not exist");
                 if (!IgnoreNoSource)
                 {
-                    result.Status = IntegrationStatus.Failure;
+                    return false;
                 }
                 else
                 {
-                    result.Status = IntegrationStatus.Success;
+                    return true;
                 }
                 
-                return;
             }
             if (File.Exists(Dest) && !Overwrite)
             {
                 Utilities.LogConsoleAndTask(result, "dest file " + Dest + " exists and overwrite is set to false");
-                result.Status = IntegrationStatus.Failure;
-                return;
+                return false;
             }
             
             if (File.Exists(Dest))
@@ -45,11 +45,13 @@ namespace ccnet.ZiathBuildLabeller.plugin
                 Utilities.LogConsoleAndTask(result, "Deleted " + Dest);
                 File.Delete(Dest);
             }
+
+            Directory.CreateDirectory(Path.GetDirectoryName(Dest));
             File.Move(Source, Dest);
             Utilities.LogConsoleAndTask(result, "Moved " + Source + " to " + Dest);
             Utilities.LogConsoleAndTask(result, "----------------ZIATH MOVE FILES END-------------");
-            result.Status = IntegrationStatus.Success;
             Utilities.LogTaskEnd(result);
+            return true;
         }
 
         #region Properties

@@ -5,12 +5,13 @@ using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Remote;
 using System.Net;
 using ccnet.ZiathBuild.plugin;
+using ThoughtWorks.CruiseControl.Core.Tasks;
 
 namespace ccnet.ZiathBuildLabeller.plugin
 {
 
 	[ReflectorType("ZiathBuildLabeller")]
-	public class ZiathBuildLabeller : ILabeller, ITask
+	public class ZiathBuildLabeller : TaskBase, ILabeller
 	{
 
 		#region Constructors
@@ -37,12 +38,13 @@ namespace ccnet.ZiathBuildLabeller.plugin
 
         #region Methods
 
-        public void Run(IIntegrationResult result)
+        protected override bool Execute(IIntegrationResult result)
 		{
             Utilities.LogTaskStart(result, "ZiathBuildLabeller");
 			result.Label = Generate(result);
             result.Status = IntegrationStatus.Success;
             Utilities.LogTaskEnd(result);
+            return true;
         }
 		
 		public string Generate(IIntegrationResult resultFromLastBuild)

@@ -8,6 +8,7 @@ using WinSCP;
 using System.IO;
 using ThoughtWorks.CruiseControl.Remote;
 using ccnet.ZiathBuild.plugin;
+using ThoughtWorks.CruiseControl.Core.Tasks;
 
 namespace ccnet.ZiathBuildLabeller.plugin
 {
@@ -27,7 +28,7 @@ namespace ccnet.ZiathBuildLabeller.plugin
 
 
     [ReflectorType("ZiathDeleteFiles")]
-    public class ZiathDeleteFiles : ITask
+    public class ZiathDeleteFiles : TaskBase
     {
         private bool IsExcluded(string path)
         {
@@ -44,7 +45,8 @@ namespace ccnet.ZiathBuildLabeller.plugin
 
         private string CombineWithBaseDir(string d)
         {
-            if (!d.Equals(Path.GetFullPath(d)))
+            
+            if (!System.IO.Path.IsPathRooted(d)  || !d.Equals(Path.GetFullPath(d)))
             {
                 if (!String.IsNullOrEmpty(BaseDir))
                 {
@@ -64,7 +66,8 @@ namespace ccnet.ZiathBuildLabeller.plugin
                 }
             }
         }
-        public void Run(IIntegrationResult result)
+
+        protected override bool Execute(IIntegrationResult result)
         {
             try
             {
@@ -76,6 +79,7 @@ namespace ccnet.ZiathBuildLabeller.plugin
                 {
                     foreach (DeleteDirectory dd in Directories)
                     {
+                        Utilities.LogConsoleAndTask(result, $"processing directory {dd}");
                         String d = CombineWithBaseDir(dd.Path);
 
                         String sDir = d.Trim();
@@ -167,16 +171,14 @@ namespace ccnet.ZiathBuildLabeller.plugin
                     }
                 }
                 Utilities.LogConsoleAndTask(result, "----------------DELETE FILES END-------------");
-                result.Status = IntegrationStatus.Success;
+                Utilities.LogTaskEnd(result);
+                return true;
             }
             catch (Exception e)
             {
-                Console.Error.WriteLine(e.ToString());
-                result.Status = IntegrationStatus.Exception;
-            }
-            finally
-            {
+                Utilities.LogConsoleAndTask(result, e);
                 Utilities.LogTaskEnd(result);
+                return false;
             }
         }
 

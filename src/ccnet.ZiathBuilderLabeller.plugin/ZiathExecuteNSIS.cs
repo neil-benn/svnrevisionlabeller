@@ -38,7 +38,7 @@ namespace ccnet.ZiathBuild.plugin
 
         protected override string GetProcessArguments(IIntegrationResult result)
         {
-            string gitsha = Utilities.GetGitSHA(result.WorkingDirectory);
+            string gitsha = Utilities.GetGitSHA(result.WorkingDirectory, GitExe);
             string args = string.Format("/DBUILDNUMBER={1} /DGITSHA={2}", NSIFile, result.Label, gitsha);
             foreach (string dprop in NSISDProps)
             {
@@ -54,6 +54,9 @@ namespace ccnet.ZiathBuild.plugin
             return BaseDirectory;
         }
 
+
+        [ReflectorProperty("gitexe", Required = true)]
+        public string GitExe { get; set; }
 
         protected override bool Execute(IIntegrationResult result)
         {
