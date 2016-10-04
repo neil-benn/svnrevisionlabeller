@@ -23,6 +23,8 @@ namespace ccnet.ZiathBuildLabeller.plugin
         public bool Recursive { get; set; }
         [ReflectorProperty("exclude", Required = false)]
         public string Exclude { get; set; }
+        [ReflectorProperty("IgnoreMissing", Required = false)]
+        public Boolean IgnoreMissing { get; set; }
     }
 
 
@@ -81,7 +83,11 @@ namespace ccnet.ZiathBuildLabeller.plugin
                     {
                         Utilities.LogConsoleAndTask(result, $"processing directory {dd}");
                         String d = CombineWithBaseDir(dd.Path);
-
+                        if (!Directory.Exists(d) && dd.IgnoreMissing)
+                        {
+                            Utilities.LogConsoleAndTask(result, $"Ignoring {d}");
+                            continue;
+                        }
                         String sDir = d.Trim();
                         String workingBaseDir = BaseDir != null ? BaseDir : ".";
                         string[] delDirs = null;
@@ -184,6 +190,7 @@ namespace ccnet.ZiathBuildLabeller.plugin
 
         #region Properties
 
+        
         [ReflectorProperty("BaseDir", Required=false)]
         public string BaseDir { get; set; }
         [ReflectorArray("files", Required = false)]
